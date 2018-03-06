@@ -2,10 +2,7 @@ package dbgui;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*
 	Run with:
@@ -17,17 +14,17 @@ public class DBTest {
     private String username = "tilfjjea";
     private String password = "tC0sMMGx8EH6KyQ7CRBVEIUVzC82C8Zv";
 
-    public void setUp() {
-        try {
-            Class.forName("org.postgresql.Driver");
+//    public void setUp() {
+//        try {
+//            Class.forName("org.postgresql.Driver");
+//
+//        } catch (java.lang.ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 
-        } catch (java.lang.ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public Statement connectToDB() {
+    private Statement connectToDB() {
 
         try {
             Connection db = DriverManager.getConnection(url, username, password);
