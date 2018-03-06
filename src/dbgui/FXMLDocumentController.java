@@ -6,7 +6,9 @@
 package dbgui;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -27,20 +29,22 @@ import javafx.scene.layout.GridPane;
  */
 public class FXMLDocumentController implements Initializable {
 
+    private final DBTest db = new DBTest();
+
     @FXML
     private TextField NumberOfParticipants;
     @FXML
-    private ListView<?> CoachesAndTeamsList;
+    private ListView<String> CoachesAndTeamsList;
     @FXML
     private Label PlayerAndTeams;
     @FXML
-    private ListView<?> TeamsWithWinsList;
+    private ListView<String> TeamsWithWinsList;
     @FXML
-    private ListView<?> TeamsList;
+    private ListView<String> TeamsList;
     @FXML
     private Label PlayersOnTeam;
     @FXML
-    private ListView<?> Tournaments;
+    private ListView<String> Tournaments;
     @FXML
     private GridPane LoginScreen;
     @FXML
@@ -53,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       
+        LoginScreen.setVisible(false);
         /*Insert into Starter Class
         Stage mainStage = new Stage();
         mainStage.setMinHeight(480);
@@ -67,7 +71,7 @@ public class FXMLDocumentController implements Initializable {
         mainStage.setTitle("Counter Strike Database Management");
 
         mainStage.getIcons().add(icon);
-        */
+         */
     }
 
     @FXML
@@ -89,30 +93,44 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void Login(ActionEvent event) {
         System.out.println(Username.getText() + Password.getText());
-        if(Username.getText().equals("Admin") && Password.getText().equals("Password")){
+        if (Username.getText().equals("Admin") && Password.getText().equals("Password")) {
             System.out.println("Right");
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
-            
+
         }
     }
 
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
-    }
+        //gets list of names and teams of all coaches
+        if (CoachesAndTeamsList.getChildrenUnmodifiable().isEmpty()) {
 
+            CoachesAndTeamsList.setItems(FXCollections.observableList(db.executeQuery("SELECT * FROM coaches")));
+        }
+
+    }
 
     @FXML
     private void fetchTeamsAndPlayers(Event event) {
+        //gets list of names of players and coaches of teams who have won a tournament
+        if (TeamsWithWinsList.getChildrenUnmodifiable().isEmpty()) {
+
+            TeamsWithWinsList.setItems(FXCollections.observableList(db.executeQuery("SELECT * FROM coaches")));
+        }
+
     }
 
     @FXML
     private void fetchTournaments(Event event) {
+        //get list of tournaments with at least as many participating teams as the user inputs
+
     }
 
     @FXML
     private void fetchPlayersAndCoaches(Event event) {
-    }
+        //gets list of teams and number of players on it.
 
+    }
 
 }
