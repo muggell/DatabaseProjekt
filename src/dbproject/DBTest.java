@@ -28,7 +28,7 @@ public class DBTest {
             Connection db = DriverManager.getConnection(url, username, password);
 
             Statement st = db.createStatement();
-            ResultSet rs = st.executeQuery("select * from users");
+            ResultSet rs = st.executeQuery("select * from people");
             while (rs.next()) {
 
                 System.out.print(rs.getString(1) + " ");
