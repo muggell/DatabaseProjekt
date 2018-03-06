@@ -124,7 +124,7 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void fetchTournaments(Event event) {
         //get list of tournaments with at least as many participating teams as the user inputs
-
+        String query = "SELECT COUNT(*) FROM tournaments WHERE name = ";
     }
 
     @FXML
