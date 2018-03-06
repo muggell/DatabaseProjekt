@@ -7,7 +7,6 @@ package dbgui;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -28,23 +27,20 @@ import javafx.scene.layout.GridPane;
  */
 public class FXMLDocumentController implements Initializable {
 
-
-    private final DBTest db=new DBTest();
-    
     @FXML
     private TextField NumberOfParticipants;
     @FXML
-    private ListView<String> CoachesAndTeamsList;
+    private ListView<?> CoachesAndTeamsList;
     @FXML
     private Label PlayerAndTeams;
     @FXML
-    private ListView<String> TeamsWithWinsList;
+    private ListView<?> TeamsWithWinsList;
     @FXML
-    private ListView<String> TeamsList;
+    private ListView<?> TeamsList;
     @FXML
     private Label PlayersOnTeam;
     @FXML
-    private ListView<String> Tournaments;
+    private ListView<?> Tournaments;
     @FXML
     private GridPane LoginScreen;
     @FXML
@@ -57,7 +53,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       CoachesAndTeamsList.setItems(FXCollections.observableList(db.executeQuery("select * from people")));
+       
         /*Insert into Starter Class
         Stage mainStage = new Stage();
         mainStage.setMinHeight(480);
@@ -71,7 +67,7 @@ public class FXMLDocumentController implements Initializable {
         mainStage.setTitle("Counter Strike Database Management");
 
         mainStage.getIcons().add(icon);
-         */
+        */
     }
 
     @FXML
@@ -92,23 +88,19 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void Login(ActionEvent event) {
+        System.out.println(Username.getText() + Password.getText());
         if(Username.getText().equals("Admin") && Password.getText().equals("Password")){
+            System.out.println("Right");
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
-
+            
         }
     }
 
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
-
-        //PlayerAndTeams
-
-        }
-
-    @FXML
-    private void fetchPlayersAndTeams(Event event) {
     }
+
 
     @FXML
     private void fetchTeamsAndPlayers(Event event) {
@@ -116,11 +108,11 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void fetchTournaments(Event event) {
+    }
 
+    @FXML
+    private void fetchPlayersAndCoaches(Event event) {
     }
 
 
 }
-
-
-//convictList.setItems(FXCollections.observableList(new ArrayList(set)));
