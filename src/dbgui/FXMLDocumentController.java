@@ -28,7 +28,7 @@ import javafx.scene.layout.GridPane;
  */
 public class FXMLDocumentController implements Initializable {
 
-    
+
     private final DBTest db=new DBTest();
     
     @FXML
@@ -71,7 +71,7 @@ public class FXMLDocumentController implements Initializable {
         mainStage.setTitle("Counter Strike Database Management");
 
         mainStage.getIcons().add(icon);
-        */
+         */
     }
 
     @FXML
@@ -95,16 +95,16 @@ public class FXMLDocumentController implements Initializable {
         if(Username.getText().equals("Admin") && Password.getText().equals("Password")){
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
-            
+
         }
     }
 
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
-    
-    //PlayerAndTeams
-    
-    }
+
+        //PlayerAndTeams
+
+        }
 
     @FXML
     private void fetchPlayersAndTeams(Event event) {
@@ -116,7 +116,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void fetchTournaments(Event event) {
-    
+
     }
 
 
