@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.CheckBox;
@@ -96,6 +97,22 @@ public class FXMLDocumentController implements Initializable {
             LoginScreen.setOpacity(0);
             
         }
+    }
+
+    @FXML
+    private void fetchCoachedAndPlayers(Event event) {
+    }
+
+    @FXML
+    private void fetchPlayersAndTeams(Event event) {
+    }
+
+    @FXML
+    private void fetchTeamsAndPlayers(Event event) {
+    }
+
+    @FXML
+    private void fetchTournaments(Event event) {
     }
 
 
