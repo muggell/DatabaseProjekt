@@ -6,7 +6,6 @@
 package dbgui;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -29,20 +28,23 @@ import javafx.scene.layout.GridPane;
  */
 public class FXMLDocumentController implements Initializable {
 
+    
+    private final DBTest db=new DBTest();
+    
     @FXML
     private TextField NumberOfParticipants;
     @FXML
-    private ListView<?> CoachesAndTeamsList;
+    private ListView<String> CoachesAndTeamsList;
     @FXML
     private Label PlayerAndTeams;
     @FXML
-    private ListView<?> TeamsWithWinsList;
+    private ListView<String> TeamsWithWinsList;
     @FXML
-    private ListView<?> TeamsList;
+    private ListView<String> TeamsList;
     @FXML
     private Label PlayersOnTeam;
     @FXML
-    private ListView<?> Tournaments;
+    private ListView<String> Tournaments;
     @FXML
     private GridPane LoginScreen;
     @FXML
@@ -55,7 +57,7 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       
+       CoachesAndTeamsList.setItems(FXCollections.observableList(db.executeQuery("select * from people")));
         /*Insert into Starter Class
         Stage mainStage = new Stage();
         mainStage.setMinHeight(480);
@@ -90,9 +92,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void Login(ActionEvent event) {
-        System.out.println(Username.getText() + Password.getText());
         if(Username.getText().equals("Admin") && Password.getText().equals("Password")){
-            System.out.println("Right");
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
             
@@ -101,6 +101,9 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
+    
+    //PlayerAndTeams
+    
     }
 
     @FXML
@@ -113,6 +116,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void fetchTournaments(Event event) {
+    
     }
 
 
