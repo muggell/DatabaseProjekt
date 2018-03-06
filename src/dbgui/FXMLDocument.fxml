@@ -52,7 +52,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab onSelectionChanged="#fetchPlayersAndTeams" text="PLAYERS &amp; TEAMS">
+          <Tab onSelectionChanged="#fetchPlayersAndCoaches" text="PLAYERS AND COACHES">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -83,7 +83,7 @@
                   </AnchorPane>
             </content>
           </Tab>
-            <Tab onSelectionChanged="#fetchTeamsAndPlayers" text="TEAMS &amp; PLAYERS">
+            <Tab onSelectionChanged="#fetchTeamsAndPlayers" text="TEAMS &amp; PLAYER NUMBERS">
                <content>
                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
