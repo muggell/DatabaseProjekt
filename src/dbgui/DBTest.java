@@ -3,6 +3,7 @@ package dbgui;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.postgresql.util.PSQLException;
 
 /*
 	Run with:
@@ -40,16 +41,13 @@ public class DBTest {
     public List executeQuery(String query) {
         st = connectToDB();
         List<String> l = new ArrayList();
-        try {
-
-            ResultSet rs = st.executeQuery(query);
+        try(ResultSet rs = st.executeQuery(query)) {
             ResultSetMetaData rsmd = rs.getMetaData();
             StringBuilder sb = new StringBuilder();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
                     sb.append(rs.getString(i)).append("\t");
-                    System.out.println(rs.getString(i));
                 }
                 l.add(sb.toString());
                 sb.setLength(0);
