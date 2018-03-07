@@ -46,10 +46,6 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private ListView<String> TeamsList;
     @FXML
-    private Label PlayersOnTeam;
-    @FXML
-    private ListView<String> Tournaments;
-    @FXML
     private GridPane LoginScreen;
     @FXML
     private TextField Username;
@@ -57,11 +53,13 @@ public class FXMLDocumentController implements Initializable {
     private PasswordField Password;
     @FXML
     private CheckBox RememberMe;
+    @FXML
+    private ListView<?> TournamentsList;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        LoginScreen.setVisible(false);
+        // LoginScreen.setVisible(false);
         /*Insert into Starter Class
         Stage mainStage = new Stage();
         mainStage.setMinHeight(480);
@@ -83,7 +81,7 @@ public class FXMLDocumentController implements Initializable {
         if (event.getCode() == KeyCode.ENTER) {
             String amount = NumberOfParticipants.getText();
             NumberOfParticipants.clear();
-            System.out.println(amount);
+            fetchTournaments(Integer.parseInt(amount));
         }
     }
 
@@ -110,7 +108,10 @@ public class FXMLDocumentController implements Initializable {
         //gets list of names and teams of all coaches
         if (CoachesAndTeamsList.getChildrenUnmodifiable().isEmpty()) {
             System.out.println("Players and coaches:");
-            CoachesAndTeamsList.setItems(FXCollections.observableList(db.executeQuery("SELECT people FROM playson")));
+            List listeditems = db.executeQuery("SELECT * FROM playson UNION SELECT * FROM coaches");
+            listeditems = newGroupedList(listeditems);
+            Collections.sort(listeditems);
+            CoachesAndTeamsList.setItems(FXCollections.observableList(listeditems));
         }
 
     }
@@ -118,34 +119,60 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void fetchTeamsAndPlayers(Event event) {
         //gets list of teams and number of players on it.
+        if (TeamsList.getChildrenUnmodifiable().isEmpty()) {
 
+            List listeditems = db.executeQuery(
+                    "SELECT playson.teams, COUNT(playson.teams) FROM playson"
+                    + " JOIN teams ON playson.teams = teams.name "
+                    + "GROUP BY playson.teams");
+
+            //listeditems = newGroupedList(listeditems);
+            //Collections.sort(listeditems);
+            TeamsList.setItems(FXCollections.observableList(listeditems));
+        }
     }
 
-    @FXML
-    private void fetchTournaments(Event event) {
+    private void fetchTournaments(int num) {
         //get list of tournaments with at least as many participating teams as the user inputs
-        String query = "SELECT COUNT(*) FROM tournaments WHERE name IN (SELECT winner FROM tournaments)";
-        TeamsList.setItems(FXCollections.observableList(db.executeQuery(query)));
+        if (TournamentsList.getChildrenUnmodifiable().isEmpty()) {
 
+            List listeditems = db.executeQuery(
+                    "SELECT tournaments FROM participatesin "
+                    + "GROUP BY tournaments "
+                    + "HAVING COUNT(teams) >= " + num);
+            TournamentsList.setItems(FXCollections.observableList(listeditems));
+        }
     }
 
     @FXML
     private void fetchPlayersAndCoaches(Event event) {
         //gets list of names of players and coaches of teams who have won a tournament
         //if (TeamsWithWinsList.getChildrenUnmodifiable().isEmpty()) {
+        if (TeamsWithWinsList.getChildrenUnmodifiable().isEmpty()) {
 
-       List listeditems = db.executeQuery(
-                "SELECT * FROM coaches WHERE coaches.teams "
-                + "IN (SELECT winner FROM tournaments) UNION "
-                + "SELECT * FROM playson WHERE playson.teams "
-                + "IN (SELECT winner FROM tournaments)");
-        Collections.sort(listeditems);
-        TeamsWithWinsList.setItems(FXCollections.observableList(listeditems));
-        
-        System.out.println("\n\n\n\nTeams with wins:");
+            List listeditems = db.executeQuery(
+                    "SELECT * FROM coaches WHERE coaches.teams "
+                    + "IN (SELECT winner FROM tournaments) UNION "
+                    + "SELECT * FROM playson WHERE playson.teams "
+                    + "IN (SELECT winner FROM tournaments)");
+            List listed = newGroupedList(listeditems);
+            Collections.sort(listed);
+            TeamsWithWinsList.setItems(FXCollections.observableList(listed));
+        }
         //TeamsWithWinsList.setItems(FXCollections.observableList(db.executeQuery("SELECT winner FROM tournaments")));
 
         //}
+    }
+
+    public List<String> newGroupedList(List<String> list) {
+        int i = 0;
+        List<String> val = new ArrayList();
+        for (String line : list) {
+            i++;
+            String[] word = line.split("\t");
+            val.add(word[1] + "\t" + word[0]);
+        }
+        return val;
     }
 
 }
