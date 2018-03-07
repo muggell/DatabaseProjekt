@@ -49,6 +49,7 @@ public class DBTest {
             while (rs.next()) {
                 for (int i = 1; i <= columnsNumber; i++) {
                     sb.append(rs.getString(i)).append("\t");
+                    System.out.println(rs.getString(i));
                 }
                 l.add(sb.toString());
                 sb.setLength(0);
