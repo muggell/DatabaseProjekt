@@ -71,6 +71,7 @@ public class FXMLDocumentController implements Initializable {
     private void SearchClicked(MouseEvent event) {
         String amount = NumberOfParticipants.getText();
         NumberOfParticipants.clear();
+        fetchTournaments(Integer.parseInt(amount));
     }
 
     @FXML
@@ -78,6 +79,9 @@ public class FXMLDocumentController implements Initializable {
         if (Username.getText().equals("Admin") && Password.getText().equals("Password")) {
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
+        } else {
+            System.out.println("Wrong username or password.");
+            System.out.println("Try Username: Admin, Password: Password");
         }
     }
 
