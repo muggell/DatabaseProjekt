@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -94,9 +95,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void Login(ActionEvent event) {
-        System.out.println(Username.getText() + Password.getText());
         if (Username.getText().equals("Admin") && Password.getText().equals("Password")) {
-            System.out.println("Right");
             LoginScreen.setDisable(true);
             LoginScreen.setOpacity(0);
 
