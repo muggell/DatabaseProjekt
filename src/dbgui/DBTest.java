@@ -14,7 +14,7 @@ public class DBTest {
     private String url = "jdbc:postgresql://baasu.db.elephantsql.com:5432/tilfjjea";
     private String username = "tilfjjea";
     private String password = "tC0sMMGx8EH6KyQ7CRBVEIUVzC82C8Zv";
-    private Statement st;
+    private Statement st = connectToDB();
 
 //    public void setUp() {
 //        try {
@@ -39,7 +39,6 @@ public class DBTest {
     }
 
     public List executeQuery(String query) {
-        st = connectToDB();
         List<String> l = new ArrayList();
         try(ResultSet rs = st.executeQuery(query)) {
             ResultSetMetaData rsmd = rs.getMetaData();
@@ -53,7 +52,6 @@ public class DBTest {
                 sb.setLength(0);
             }
             rs.close();
-            st.close();
             return l;
 
         } catch (SQLException e) {
