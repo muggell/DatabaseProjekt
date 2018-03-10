@@ -35,7 +35,7 @@
                      <children>
                         <GridPane prefHeight="420.0" prefWidth="722.0">
                            <children>
-                              <Label text="Coaches and their teams:" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label text="All names of coaches and the team they belong to" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Arial" size="16.0" />
                                  </font>
@@ -75,7 +75,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="PlayerAndTeams" text="Players on teams with more than one win:" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label fx:id="PlayerAndTeams" text="All names of people who are on ateam, which has won at least one tournament" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Arial" size="16.0" />
                                  </font>
@@ -104,10 +104,13 @@
                             <RowConstraints minHeight="10.0" prefHeight="450.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label text="Teams:" textFill="#00000080" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                              <Label text="All names of teams and the number of players on that team" textFill="#00000080" GridPane.columnSpan="2" GridPane.halignment="LEFT" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Arial" size="16.0" />
                                  </font>
+                                 <GridPane.margin>
+                                    <Insets left="25.0" />
+                                 </GridPane.margin>
                               </Label>
                               <ListView fx:id="TeamsList" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
                            </children>
@@ -157,6 +160,9 @@
                            <font>
                               <Font name="Arial" size="12.0" />
                            </font>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
                         </Label>
                      </children>
                   </AnchorPane>
