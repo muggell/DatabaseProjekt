@@ -88,7 +88,9 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
         //gets list of names and teams of all coaches
-        List listeditems = db.executeQuery("SELECT * FROM playson UNION SELECT * FROM coaches");
+        List listeditems = db.executeQuery(
+                "SELECT * FROM playson "
+                + "UNION SELECT * FROM coaches");
         listeditems = newGroupedList(listeditems);
         Collections.sort(listeditems);
         CoachesAndTeamsList.setItems(FXCollections.observableList(listeditems));

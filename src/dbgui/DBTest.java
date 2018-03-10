@@ -26,6 +26,8 @@ public class DBTest {
 //
 //    }
     private Statement connectToDB() {
+        ConnectionTest tests = new ConnectionTest(username, password, url);
+        System.out.println("Connection to DB Test: " + tests.connectionTest());
 
         try {
             Connection db = DriverManager.getConnection(url, username, password);
@@ -40,7 +42,7 @@ public class DBTest {
 
     public List executeQuery(String query) {
         List<String> l = new ArrayList();
-        try(ResultSet rs = st.executeQuery(query)) {
+        try (ResultSet rs = st.executeQuery(query)) {
             ResultSetMetaData rsmd = rs.getMetaData();
             StringBuilder sb = new StringBuilder();
             int columnsNumber = rsmd.getColumnCount();
@@ -51,6 +53,8 @@ public class DBTest {
                 l.add(sb.toString());
                 sb.setLength(0);
             }
+            QueryResultTest test = new QueryResultTest(l);
+            System.out.println(test.checkQueryResult());
             rs.close();
             return l;
 
