@@ -88,11 +88,11 @@ public class FXMLDocumentController implements Initializable {
     @FXML
     private void fetchCoachedAndPlayers(Event event) {
         //gets list of names and teams of all coaches
-        List listeditems = db.executeQuery(
-                "SELECT * FROM playson "
-                + "UNION SELECT * FROM coaches");
-        listeditems = newGroupedList(listeditems);
-        Collections.sort(listeditems);
+        List listeditems = 
+                db.executeQuery("SELECT DISTINCT coaches.teams, coaches.people FROM coaches "
+                        + "ORDER BY coaches.teams");
+        //listeditems = newGroupedList(listeditems);
+        //Collections.sort(listeditems);
         CoachesAndTeamsList.setItems(FXCollections.observableList(listeditems));
     }
 
@@ -100,18 +100,20 @@ public class FXMLDocumentController implements Initializable {
     private void fetchTeamsAndPlayers(Event event) {
         //gets list of teams and number of players on it.
 
-        List listeditems = db.executeQuery(
+        List listeditems = 
+                db.executeQuery(
                 "SELECT playson.teams, COUNT(playson.teams) FROM playson"
                 + " JOIN teams ON playson.teams = teams.name "
-                + "GROUP BY playson.teams");
-        Collections.sort(listeditems);
+                + "GROUP BY playson.teams "
+                + "ORDER BY playson.teams");
         TeamsList.setItems(FXCollections.observableList(listeditems));
     }
 
     private void fetchTournaments(int num) {
         //get list of tournaments with at least as many participating teams as the user inputs
 
-        List listeditems = db.executeQuery(
+        List listeditems = 
+                db.executeQuery(
                 "SELECT tournaments FROM participatesin "
                 + "GROUP BY tournaments "
                 + "HAVING COUNT(teams) >= " + num);
@@ -122,25 +124,15 @@ public class FXMLDocumentController implements Initializable {
     private void fetchPlayersAndCoaches(Event event) {
         //gets list of names of players and coaches of teams who have won a tournament
 
-        List listeditems = db.executeQuery(
-                "SELECT * FROM coaches WHERE coaches.teams "
+        List listeditems = 
+                db.executeQuery(
+                "SELECT coaches.teams, coaches.people FROM coaches WHERE coaches.teams "
                 + "IN (SELECT winner FROM tournaments) UNION "
-                + "SELECT * FROM playson WHERE playson.teams "
-                + "IN (SELECT winner FROM tournaments)");
-        List listed = newGroupedList(listeditems);
-        Collections.sort(listed);
-        TeamsWithWinsList.setItems(FXCollections.observableList(listed));
+                + "SELECT playson.teams, playson.people FROM playson WHERE playson.teams "
+                + "IN (SELECT winner FROM tournaments) "
+                + "ORDER BY teams");
+        TeamsWithWinsList.setItems(FXCollections.observableList(listeditems));
     }
 
-    public List<String> newGroupedList(List<String> list) {
-        int i = 0;
-        List<String> val = new ArrayList();
-        for (String line : list) {
-            i++;
-            String[] word = line.split("\t");
-            val.add(word[1] + "\t" + word[0]);
-        }
-        return val;
-    }
 
 }

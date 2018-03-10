@@ -75,7 +75,7 @@
                             <RowConstraints minHeight="10.0" prefHeight="200.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="PlayerAndTeams" text="All names of people who are on ateam, which has won at least one tournament" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+                              <Label fx:id="PlayerAndTeams" text="All names of people who are on a team, which has won at least one tournament" textFill="#00000080" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                                  <font>
                                     <Font name="Arial" size="16.0" />
                                  </font>
@@ -170,7 +170,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <GridPane fx:id="LoginScreen" maxHeight="480.0" maxWidth="720.0" minHeight="480.0" minWidth="720.0" prefHeight="480.0" prefWidth="720.0">
+      <GridPane fx:id="LoginScreen" maxHeight="480.0" maxWidth="720.0" minHeight="480.0" minWidth="720.0" prefHeight="480.0" prefWidth="720.0" visible="false">
         <columnConstraints>
           <ColumnConstraints hgrow="NEVER" minWidth="10.0" prefWidth="200.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
