@@ -113,9 +113,10 @@ public class FXMLDocumentController implements Initializable {
 
         List listeditems = 
                 db.executeQuery(
-                "SELECT tournaments FROM participatesin "
+                "SELECT COUNT(teams), tournaments  FROM participatesin "
                 + "GROUP BY tournaments "
-                + "HAVING COUNT(teams) >= " + num);
+                + "HAVING COUNT(teams) >= " + num
+                + " ORDER BY COUNT(teams) DESC");
         TournamentsList.setItems(FXCollections.observableList(listeditems));
     }
 
