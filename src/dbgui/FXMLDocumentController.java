@@ -89,8 +89,8 @@ public class FXMLDocumentController implements Initializable {
     private void fetchCoachedAndPlayers(Event event) {
         //gets list of names and teams of all coaches
         List listeditems = 
-                db.executeQuery("SELECT DISTINCT coaches.teams, coaches.people FROM coaches "
-                        + "ORDER BY coaches.teams");
+                db.executeQuery("SELECT DISTINCT teams, people FROM coaches "
+                        + "ORDER BY teams");
         //listeditems = newGroupedList(listeditems);
         //Collections.sort(listeditems);
         CoachesAndTeamsList.setItems(FXCollections.observableList(listeditems));
@@ -102,10 +102,9 @@ public class FXMLDocumentController implements Initializable {
 
         List listeditems = 
                 db.executeQuery(
-                "SELECT playson.teams, COUNT(playson.teams) FROM playson"
-                + " JOIN teams ON playson.teams = teams.name "
-                + "GROUP BY playson.teams "
-                + "ORDER BY playson.teams");
+                "SELECT teams, COUNT(teams) FROM playson "
+                + "GROUP BY teams "
+                + "ORDER BY teams");
         TeamsList.setItems(FXCollections.observableList(listeditems));
     }
 
@@ -126,9 +125,9 @@ public class FXMLDocumentController implements Initializable {
 
         List listeditems = 
                 db.executeQuery(
-                "SELECT coaches.teams, coaches.people FROM coaches WHERE coaches.teams "
+                "SELECT teams, people FROM coaches WHERE teams "
                 + "IN (SELECT winner FROM tournaments) UNION "
-                + "SELECT playson.teams, playson.people FROM playson WHERE playson.teams "
+                + "SELECT teams, people FROM playson WHERE teams "
                 + "IN (SELECT winner FROM tournaments) "
                 + "ORDER BY teams");
         TeamsWithWinsList.setItems(FXCollections.observableList(listeditems));
